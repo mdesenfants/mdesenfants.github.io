@@ -611,3 +611,14 @@ pre .clojure .title {
 pre .deletion {
   color: #dc322f;
 }
+header,
+nav {
+  text-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+}
+.site-heading h1 {
+  color: #fff;
+}
+.subheading {
+  font-size: 2em;
+  text-shadow: 0px 0px 1px rgba(0,0,0,0.5);
+}
