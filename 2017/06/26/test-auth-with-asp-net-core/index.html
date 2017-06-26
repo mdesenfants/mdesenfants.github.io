@@ -1,8 +1,186 @@
-<!DOCTYPE html><html lang="en-us"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Test auth with asp.net core | Matt's Cookbook</title><meta name="description"><meta name="generator" content="Matt's Cookbook"><meta name="author" content="Matthew DesEnfants"><meta name="keywords" content="C#, .NET, Azure, Javascript, HTML, CSS, Software, Consulting"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=0"><link rel="stylesheet" type="text/css" href="/styles/screen.css"><link rel="apple-touch-icon" sizes="57x57" href="/images/apple-touch-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/images/apple-touch-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/images/apple-touch-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/images/apple-touch-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/images/apple-touch-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/images/apple-touch-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/images/apple-touch-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/images/apple-touch-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-180x180.png"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png"><link rel="icon" type="image/png" sizes="160x160" href="/images/favicon-160x160.png"><link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192x192.png"><meta name="msapplication-TileColor" content="#121315"><meta name="msapplication-TileImage" content="/images/mstile-144x144.png"></head><body itemscope itemtype="https://schema.org/WebPage"><header itemscope itemtype="https://schema.org/WPHeader"><a href="/"><img src="/images/svdb.png" alt="Matt's Cookbook" title="Matt's Cookbook"></a><h1><a href="/" alt="Matt's Cookbook" title="Matt's Cookbook" itemprop="headline">Matt's Cookbook</a></h1><p itemprop="description"></p><nav itemscope itemtype="https://schema.org/SiteNavigationElement"><ul><li itemprop="name"><a href="/" alt="Home" title="Home" itemprop="url">Home</a></li><li itemprop="name"><a href="/articles" alt="Articles" title="Articles" itemprop="url">Articles</a></li><li itemprop="name"><a href="/about" alt="About" title="About" itemprop="url">About</a></li></ul></nav><div class="space"></div></header><main itemscope itemtype="https://schema.org/Blog"><article class="full"><h1 itemprop="headline">Test auth with asp.net core</h1><span class="post-meta">Published on<time itemprop="datePublished" datetime="2017-06-26T19:29:15.000Z"> Monday, June 26th 2017 at 12:29</time><br>Last updated on<time itemprop="dateModified" datetime="2017-06-26T19:29:15.000Z"> Monday, June 26th 2017 at 12:46</time></span><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>How do I add “fake” or “mock” authentication to my ASP.NET Core app?</p>
+<!DOCTYPE html>
+<html lang="en-us">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="QuestionHow do I add “fake” or “mock” authentication to my ASP.NET Core app?
+AnswerCombine the basic cookie middleware with a custom IPricipal-generat">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Matthew DesEnfants">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Test auth with asp.net core"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Matt&#39;s Cookbook"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@matt_desenfants>" />
+    
+
+    <!-- Title -->
+    
+    <title>Test auth with asp.net core - Matt&#39;s Cookbook</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Matt's Cookbook</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="https://github.com/mdesenfants">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about">
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('/img/congruent_outline.png'); background-repeat: repeat; background-size: initial;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Test auth with asp.net core</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-06-26
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>How do I add “fake” or “mock” authentication to my ASP.NET Core app?</p>
 <h2 id="Answer"><a href="#Answer" class="headerlink" title="Answer"></a>Answer</h2><p>Combine the basic cookie middleware with a custom IPricipal-generating middleware.</p>
-<p>In Startup.cs, go to your Configure method.</p>
-<p>Add this code block.</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (env.IsDevelopment())</div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> testOptions = <span class="keyword">new</span> CookieAuthenticationOptions()</div><div class="line">    &#123;</div><div class="line"></div><div class="line">        AutomaticAuthenticate = <span class="literal">true</span>,</div><div class="line">        AutomaticChallenge = <span class="literal">true</span>,</div><div class="line">        SessionStore = <span class="keyword">new</span> CacheTicketStore(cache), <span class="comment">// optional</span></div><div class="line">        AuthenticationScheme = <span class="string">"TestMiddleWare"</span> <span class="comment">// NOTICE SCHEME</span></div><div class="line">    &#125;;</div><div class="line">    app.UseCookieAuthentication(testOptions);</div><div class="line"></div><div class="line">    app.Use(<span class="keyword">async</span> (context, next) =&gt;</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">var</span> identity = <span class="keyword">new</span> ClaimsIdentity(<span class="keyword">new</span> Claim[]</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"</span>, Guid.NewGuid().ToString()),</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"http://schemas.microsoft.com/identity/claims/tenantid"</span>, <span class="string">"test"</span>),</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"http://schemas.microsoft.com/identity/claims/objectidentifier"</span>, Guid.NewGuid().ToString()),</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"</span>, <span class="string">"test"</span>),</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"</span>, <span class="string">"test"</span>),</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn"</span>, <span class="string">"test"</span>),</div><div class="line">        &#125;, <span class="string">"test"</span>);</div><div class="line"></div><div class="line">        <span class="keyword">var</span> principal = <span class="keyword">new</span> ClaimsPrincipal(identity);</div><div class="line">        <span class="keyword">await</span> context.Authentication.SignInAsync(<span class="string">"TestMiddleWare"</span>, principal); <span class="comment">// NOTICE SCHEME</span></div><div class="line">        <span class="keyword">await</span> next();</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Add this to the start of your Configure method in Startup.cs.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (env.IsDevelopment())</div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> testOptions = <span class="keyword">new</span> CookieAuthenticationOptions()</div><div class="line">    &#123;</div><div class="line"></div><div class="line">        AutomaticAuthenticate = <span class="literal">true</span>,</div><div class="line">        AutomaticChallenge = <span class="literal">true</span>,</div><div class="line">        SessionStore = <span class="keyword">new</span> CacheTicketStore(cache),</div><div class="line">        AuthenticationScheme = <span class="string">"TestMiddleWare"</span></div><div class="line">    &#125;;</div><div class="line">    app.UseCookieAuthentication(testOptions);</div><div class="line"></div><div class="line">    app.Use(<span class="keyword">async</span> (context, next) =&gt;</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">var</span> identity = <span class="keyword">new</span> ClaimsIdentity(<span class="keyword">new</span> Claim[]</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"</span>, Guid.NewGuid().ToString()),</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"http://schemas.microsoft.com/identity/claims/tenantid"</span>, <span class="string">"test"</span>),</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"http://schemas.microsoft.com/identity/claims/objectidentifier"</span>, Guid.NewGuid().ToString()),</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"</span>, <span class="string">"test"</span>),</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"</span>, <span class="string">"test"</span>),</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn"</span>, <span class="string">"test"</span>),</div><div class="line">            <span class="keyword">new</span> Claim(<span class="string">"name"</span>, <span class="string">"test"</span>),</div><div class="line">        &#125;, <span class="string">"test"</span>);</div><div class="line"></div><div class="line">        <span class="keyword">var</span> principal = <span class="keyword">new</span> ClaimsPrincipal(identity);</div><div class="line">        <span class="keyword">await</span> context.Authentication.SignInAsync(<span class="string">"TestMiddleWare"</span>, principal);</div><div class="line">        <span class="keyword">await</span> next();</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>See the test user name from a controller endpoint like this.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[<span class="meta">HttpGet, Route(<span class="meta-string">"name"</span>)</span>]</div><div class="line">[<span class="meta">ProducesResponseType(typeof(string), 200)</span>]</div><div class="line"><span class="function"><span class="keyword">public</span> ActionResult <span class="title">Name</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.log.LogInformation(<span class="string">$"Retrieving name for authenticated user."</span>);</div><div class="line"></div><div class="line">    <span class="keyword">var</span> name = User.Claims.Select(c =&gt; <span class="keyword">new</span></div><div class="line">    &#123;</div><div class="line">        ClaimType = c.Type.ToString(),</div><div class="line">        ClaimValue = c.Value.ToString()</div><div class="line">    &#125;)</div><div class="line">    .First(c =&gt; c.ClaimType == <span class="string">"name"</span>)</div><div class="line">    .ClaimValue;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> Json(name);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="Special-notice"><a href="#Special-notice" class="headerlink" title="Special notice"></a>Special notice</h2><p>Please don’t do this.</p>
 <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>This is basically a boiled-down version of a post by <a href="http://geeklearning.io/how-to-deal-with-identity-when-testing-an-asp-net-core-application/" target="_blank" rel="external">GeekLearning.io</a>.</p>
 <p>The original solution had things well-factored-out in separate classes, but if you just need a quick and dirty solution to get your tests to pass, the above code will work.</p>
@@ -14,5 +192,96 @@
 <li>… can’t authenticate a user to another environment.</li>
 <li>… can’t authenticate itself (as a service principal) to another protected service.</li>
 </ul>
-<p>So before you implement this, just think about the miasma of underlying services and third party dependencies your app uses (and possibly shares) with production. (How many facebook login apps do you have set up right now? Just one for every enviroment? Hm…)</p>
-</article></main></body></html>
+<p>So before you implement this, just think about the miasma of underlying services and third party dependencies your app uses (and possibly shares) with production.</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                        <li>
+                            <a href="https://twitter.com/matt_desenfants" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/mdesenfants" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <a href="https://linkedin.com/in/mdesenfants" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2017 Matthew DesEnfants<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
