@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="QuestionMy cookie auth headers are getting really big. How do I store them in sessions?
+AnswerEnable in-memory sessions.
+Add this block to your Config">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Matthew DesEnfants">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Store long cookie headers in session instead"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Matt&#39;s Cookbook"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@matt_desenfants>" />
+    
+
+    <!-- Title -->
+    
+    <title>Store long cookie headers in session instead - Matt&#39;s Cookbook</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Matt's Cookbook</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="https://github.com/mdesenfants">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about">
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('/img/congruent_outline.png'); background-repeat: repeat; background-size: initial;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Store long cookie headers in session instead</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-06-28
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>My cookie auth headers are getting really big. How do I store them in sessions?</p>
+<h2 id="Answer"><a href="#Answer" class="headerlink" title="Answer"></a>Answer</h2><p>Enable in-memory sessions.</p>
+<p>Add this block to your ConfigureServices method in Startup.cs.<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">services.AddMemoryCache();</div><div class="line">services.AddSession();</div></pre></td></tr></table></figure></p>
+<p>Create an ITicketStore wrapper around your memory cache.<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CacheTicketStore</span> : <span class="title">ITicketStore</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">string</span> prefix = <span class="string">"CacheTicketStore-"</span>;</div><div class="line">    IMemoryCache _cache;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CacheTicketStore</span> (<span class="params">IMemoryCache cache</span>)</span></div><div class="line">    &#123;</div><div class="line">        _cache = cache;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="keyword">string</span>&gt; <span class="title">StoreAsync</span>(<span class="params">AuthenticationTicket ticket</span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">var</span> key = prefix + Guid.NewGuid();</div><div class="line">        <span class="keyword">await</span> RenewAsync(key, ticket);</div><div class="line">        <span class="keyword">return</span> key;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Task <span class="title">RenewAsync</span>(<span class="params"><span class="keyword">string</span> key, AuthenticationTicket ticket</span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">var</span> options = <span class="keyword">new</span> MemoryCacheEntryOptions();</div><div class="line">        <span class="keyword">var</span> expiresUtc = ticket.Properties.ExpiresUtc;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (expiresUtc.HasValue)</div><div class="line">        &#123;</div><div class="line">            options.SetAbsoluteExpiration(expiresUtc.Value);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        options.SetSlidingExpiration(TimeSpan.FromMinutes(<span class="number">60</span>));</div><div class="line"></div><div class="line">        _cache.Set(key, ticket, options);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> Task.FromResult(<span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Task&lt;AuthenticationTicket&gt; <span class="title">RetrieveAsync</span>(<span class="params"><span class="keyword">string</span> key</span>)</span></div><div class="line">    &#123;</div><div class="line">        AuthenticationTicket ticket;</div><div class="line">        _cache.TryGetValue(key, <span class="keyword">out</span> ticket);</div><div class="line">        <span class="keyword">return</span> Task.FromResult(ticket);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Task <span class="title">RemoveAsync</span>(<span class="params"><span class="keyword">string</span> key</span>)</span></div><div class="line">    &#123;</div><div class="line">        _cache.Remove(key);</div><div class="line">        <span class="keyword">return</span> Task.FromResult(<span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Add IMemoryCache as a parameter to your Configure method, and set the cache as your session store.<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Configure</span>(<span class="params">IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IMemoryCache cache</span>)</span></div><div class="line">&#123;</div><div class="line">    ...</div><div class="line">    <span class="keyword">var</span> cookieOptions = <span class="keyword">new</span> CookieAuthenticationOptions()</div><div class="line">    &#123;</div><div class="line">        ...</div><div class="line">        SessionStore = <span class="keyword">new</span> CacheTicketStore(cache)</div><div class="line">    &#125;;</div><div class="line">    app.UseCookieAuthentication(cookieOptions);</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>You might find yourself in a situation where you’re doing cookie authentication with claims tokens, but your list of claims is getting long. If you’re using the default chunker for Cookie auth, most “header too long” exceptions will be avoided.</p>
+<p>Sometimes you can’t chunk your header information, or you’re experiencing some significant perf issues over the network. In that case, you’ll have to find a way to store some of that token information outside of the browser. A quick way to do that, assuming sufficient memory, is to just store those claims in RAM on the server. ASP.NET will provide an identifier cookie instead, and use that to look up claims from the session during a request.</p>
+<p>You can optionally use an IDistributedCache, but you’ll have to put some extra work into serializing and deserializing the principal in byte[] format. Be wary of circular references. Newtonsoft will complain if you just try to throw it in the serializer and expect to store the byte string.</p>
+<p>Note: Another thing to consider is passing the prefix value as an argument to the constructor. You could use the authentication scheme string, for example, and guarantee you won’t end up with some weird cache collision.</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                        <li>
+                            <a href="https://twitter.com/matt_desenfants" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/mdesenfants" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <a href="https://linkedin.com/in/mdesenfants" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2017 Matthew DesEnfants<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
