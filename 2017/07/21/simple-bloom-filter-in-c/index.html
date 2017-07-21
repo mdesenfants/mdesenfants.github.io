@@ -10,6 +10,9 @@
 
     <!--Description-->
     
+        <meta name="description" content="QuestionWhat would a Bloom Filter look like in C#?
+Answer123456789101112131415161718192021222324int filterSize = 20;byte[] filter = new byte[filterSiz">
+    
 
     <!--Author-->
     
@@ -18,7 +21,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Matt&#39;s Cookbook"/>
+        <meta property="og:title" content="Simple Bloom Filter in C#"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +32,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -42,7 +45,7 @@
 
     <!-- Title -->
     
-    <title>Archives - Matt&#39;s Cookbook</title>
+    <title>Simple Bloom Filter in C# - Matt&#39;s Cookbook</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -136,113 +139,64 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('/img/congruent_outline.png'); background-repeat: repeat; background-size: initial;">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Archives</h1>
+                <div class="post-heading">
+                    <h1>Simple Bloom Filter in C#</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-07-21
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2017/07/21/simple-bloom-filter-in-c/">
-        <h1 class="post-title archive">
-            Simple Bloom Filter in C#
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-07-21
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>What would a Bloom Filter look like in C#?</p>
+<h2 id="Answer"><a href="#Answer" class="headerlink" title="Answer"></a>Answer</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> filterSize = <span class="number">20</span>;</div><div class="line"><span class="keyword">byte</span>[] filter = <span class="keyword">new</span> <span class="keyword">byte</span>[filterSize];</div><div class="line"></div><div class="line"><span class="comment">// We'll store this one</span></div><div class="line"><span class="keyword">string</span> there = <span class="string">"Déjà vu."</span>;</div><div class="line"><span class="keyword">int</span> thereHash = Math.Abs(there.GetHashCode());       <span class="comment">// 1783613497</span></div><div class="line"></div><div class="line"><span class="comment">// We won't store this one</span></div><div class="line"><span class="keyword">string</span> notThere = <span class="string">"Jamais vu avant."</span>;</div><div class="line"><span class="keyword">int</span> notThereHash = Math.Abs(notThere.GetHashCode()); <span class="comment">// 1746268271</span></div><div class="line"></div><div class="line"><span class="comment">// Get byte and bit indexes</span></div><div class="line"><span class="keyword">int</span> thereByte = thereHash % filterSize;              <span class="comment">// 17</span></div><div class="line"><span class="keyword">byte</span> thereBit = (<span class="keyword">byte</span>)(<span class="number">1</span> &lt;&lt; (thereHash % <span class="number">8</span>));        <span class="comment">// 2 (0b00000010)</span></div><div class="line"></div><div class="line"><span class="comment">// Same for notThere</span></div><div class="line"><span class="keyword">int</span> notThereByte = notThereHash % filterSize;        <span class="comment">// 11</span></div><div class="line"><span class="keyword">byte</span> notThereBit = (<span class="keyword">byte</span>)(<span class="number">1</span> &lt;&lt; (notThereHash % <span class="number">8</span>));  <span class="comment">// 128 (0b10000000)</span></div><div class="line"></div><div class="line"><span class="comment">// Set the bit on the chosen byte (possible collisions)</span></div><div class="line">filter[thereByte] = (<span class="keyword">byte</span>)(filter[thereByte] | thereBit);</div><div class="line"></div><div class="line">Console.WriteLine((filter[thereByte] &amp; thereBit) &gt; <span class="number">0</span>);    <span class="comment">// True</span></div><div class="line">Console.WriteLine((filter[notThereByte] &amp; notThereBit));  <span class="comment">// False</span></div></pre></td></tr></table></figure>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Neo might have seen that cat twice, but he’s not sure. It’s worth asking, though. That’s a Bloom filter.</p>
+<p>Obviously, there’s no framework in today’s example. Most examples you see of a Bloom Filter involve multiple hashes (a good idea), some level of abstraction (also a good idea), and some opinions about how you’d incorporate it into your overall project.</p>
+<p>The problem is that these examples can be a little opaque and forget to explain what the filter is doing. The above lines are an x-ray-vision walkthrough written in C#. Feel free to bring your own extras.</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2017/06/29/test-auth-with-asp-net-core/">
-        <h1 class="post-title archive">
-            Test auth with asp.net core
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-06-29
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2017/06/28/embed-one-html-page-in-another-with-object/">
-        <h1 class="post-title archive">
-            Embed one html page in another with &lt;object&gt;
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-06-28
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2017/06/28/store-long-cookie-headers-in-session-instead/">
-        <h1 class="post-title archive">
-            Store long cookie headers in session instead
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-06-28
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2017/06/26/base-64-from-c-to-javascript/">
-        <h1 class="post-title archive">
-            Base 64 from C# to Javascript
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-06-26
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2017/06/26/Run-a-C-timer-only-once/">
-        <h1 class="post-title archive">
-            Run a C# timer only once
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-06-26
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
         </div>
     </div>
-</div>
+</article>
+
 
 
     <!-- Footer -->
